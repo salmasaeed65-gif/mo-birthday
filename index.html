@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎂 عيد ميلاد محمد</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+background:linear-gradient(-45deg,#0f172a,#312e81,#581c87,#1e1b4b);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+background-image:radial-gradient(white 1px,transparent 1px);
+background-size:40px 40px;
+opacity:.3;
+pointer-events:none;
+}
+
+.screen{
+display:none;
+width:100%;
+padding:20px;
+}
+
+.active{
+display:block;
+}
+
+.card{
+max-width:800px;
+margin:auto;
+padding:35px;
+border-radius:25px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(15px);
+box-shadow:0 0 40px rgba(0,0,0,.4);
+}
+
+h1{
+font-size:40px;
+margin-bottom:15px;
+}
+
+p{
+font-size:20px;
+}
+
+input{
+padding:15px;
+width:280px;
+border:none;
+outline:none;
+border-radius:15px;
+text-align:center;
+font-size:18px;
+margin-top:20px;
+}
+
+button{
+margin-top:20px;
+padding:12px 30px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+background:#fbbf24;
+font-size:18px;
+font-weight:bold;
+}
+
+#error{
+margin-top:10px;
+color:#ffc9c9;
+}
+
+.balloons{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:25px;
+margin-top:30px;
+}
+
+.balloon{
+width:90px;
+height:120px;
+border-radius:50%;
+cursor:pointer;
+position:relative;
+animation:float 2s infinite ease-in-out;
+}
+
+.balloon::after{
+content:"";
+width:2px;
+height:50px;
+background:white;
+position:absolute;
+left:45px;
+top:120px;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-15px);
+}
+}
+
+.pop{
+animation:boom .4s forwards;
+}
+
+@keyframes boom{
+100%{
+opacity:0;
+transform:scale(2);
+}
+}
+
+.envelope{
+font-size:180px;
+cursor:pointer;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.1);
+}
+}
+
+.message{
+font-size:22px;
+line-height:2;
+white-space:pre-line;
+text-align:right;
+}
+
+h2{
+color:#fbbf24;
+margin-bottom:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div id="screen1" class="screen active">
+
+<div class="card">
+
+<h1>😌 ماشي يا محمد</h1>
+
+<p>
+لو فهمت الإيفيه اكتب الرد 👀
+</p>
+
+<input id="answer" placeholder="اكتب هنا">
+
+<br>
+
+<button onclick="checkAnswer()">
+كمل
+</button>
+
+<div id="error"></div>
+
+</div>
+
+</div>
+
+<div id="screen2" class="screen">
+
+<div class="card">
+
+<h1>🎈 فرقع كل البلالين</h1>
+
+<p>وراهم مفاجأة 👀</p>
+
+<div class="balloons">
+
+<div class="balloon" style="background:#ef4444"></div>
+<div class="balloon" style="background:#3b82f6"></div>
+<div class="balloon" style="background:#22c55e"></div>
+<div class="balloon" style="background:#f59e0b"></div>
+<div class="balloon" style="background:#a855f7"></div>
+<div class="balloon" style="background:#ec4899"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="screen3" class="screen">
+
+<div class="card">
+
+<h1>✨ وصلت للمفاجأة ✨</h1>
+
+<div class="envelope" onclick="openLetter()">
+💌
+</div>
+
+<p>اضغط على الظرف</p>
+
+</div>
+
+</div>
+
+<div id="screen4" class="screen">
+
+<div class="card">
+
+<h2>🎂 Happy Birthday Mohamed 🎂</h2>
+
+<div id="typed" class="message"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function checkAnswer(){
+
+let answer =
+document.getElementById("answer").value.trim();
+
+if(answer === "بيعرج"){
+
+document.getElementById("screen1").classList.remove("active");
+document.getElementById("screen2").classList.add("active");
+
+}else{
+
+document.getElementById("error").innerText =
+"😂 لأ يا مشمشه... قول الرد الصح";
+
+}
+
+}
+
+let count = 0;
+
+document.querySelectorAll(".balloon").forEach(balloon=>{
+
+balloon.addEventListener("click",function(){
+
+if(this.classList.contains("pop")) return;
+
+this.classList.add("pop");
+
+count++;
+
+if(count === 6){
+
+setTimeout(()=>{
+
+document.getElementById("screen2").classList.remove("active");
+document.getElementById("screen3").classList.add("active");
+
+},700);
+
+}
+
+});
+
+});
+
+function openLetter(){
+
+document.getElementById("screen3").classList.remove("active");
+document.getElementById("screen4").classList.add("active");
+
+typeMessage();
+
+}
+
+function typeMessage(){
+
+const text = `
+
+كل سنة وأنت طيب يا مشمشه ❤️
+بجد كنت عايزة أعملك حاجة مختلفة شوية.
+وأقولك إنك شخص جميل ووجودك بيفرق.
+أتمنى السنة الجديدة تكون مليانة نجاح وفرح وضحك.
+وتحقق كل حاجة نفسك فيها يا رب ✨
+كانت صدفه حلوه الي جمعتنا بننكش بعض كتير ونغلس على بعض 
+بس م بنسيبش حد فينا زعلان او يفهم حاجه غلط 
+ونتفاهم ونرجع نهزر تاني ,و بس حابه اقولك انو انت شخص
+حنون جدا محترم وقمووور مش هقدر انكر وخف حلاوه بقى قلوبنا مش لعبه 
+عيد ميلاد سعيد يا أجمل وأحن مشمشه في الدنيا ❤️
+بجد مبسوطة جدًا إني اتعرفت عليك.
+يا أحلى غلس بيغلس عليا 😂
+بقيت 21 سنة ولسه كتكوت صغنن...
+
+متقوليش كبرت 🎂🎉❤️
+؛
+`;
+
+let i = 0;
+
+let target = document.getElementById("typed");
+
+function write(){
+
+if(i < text.length){
+
+target.innerHTML += text.charAt(i);
+
+i++;
+
+setTimeout(write,40);
+
+}
+
+}
+
+write();
+
+}
+
+</script>
+
+</body>
+</html>
